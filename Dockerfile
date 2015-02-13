@@ -11,5 +11,5 @@ RUN curl -Lko /tmp/terra.zip https://dl.bintray.com/mitchellh/terraform/terrafor
 VOLUME /data
 WORKDIR /data
 
-CMD ["/usr/local/bin/terraform"]
+ENTRYPOINT ["/usr/local/bin/terraform"]
 
