@@ -1,15 +1,18 @@
 FROM gliderlabs/alpine:3.1
-MAINTAINER lajos.papp@sequenceiq.com
+MAINTAINER nick@silvamerica.com
 
-RUN apk-install curl
+ENV TERRAFORM_VERSION 0.5.1
 
-RUN curl -Lko /tmp/terra.zip https://dl.bintray.com/mitchellh/terraform/terraform_0.3.7_linux_amd64.zip \
-    && cd /usr/local/bin \
-    && unzip /tmp/terra.zip \
-    && rm -rf /tmp/terra.zip
+RUN apk-install ca-certificates
+
+RUN wget http://dl.bintray.com/mitchellh/terraform/terraform_${TERRAFORM_VERSION}_linux_amd64.zip \
+    -O /tmp/terraform.zip; \
+    unzip /tmp/terraform.zip -d /usr/local/bin; \
+    rm /tmp/terraform.zip
 
 VOLUME /data
 WORKDIR /data
 
 ENTRYPOINT ["/usr/local/bin/terraform"]
 
+CMD ["--help"]
