@@ -1,14 +1,17 @@
-FROM gliderlabs/alpine:3.1
+FROM buildpack-deps:jessie
 MAINTAINER nick@silvamerica.com
 
-ENV TERRAFORM_VERSION 0.5.1
+RUN apt-get update && \
+	apt-get install -y --no-install-recommends \
+						unzip && \
+	rm -rf /var/lib/apt/lists/*
 
-RUN apk-install ca-certificates
+ENV HASHI_PRODUCT terraform
+ENV HASHI_VERSION 0.6.3
 
-RUN wget http://dl.bintray.com/mitchellh/terraform/terraform_${TERRAFORM_VERSION}_linux_amd64.zip \
-    -O /tmp/terraform.zip; \
-    unzip /tmp/terraform.zip -d /usr/local/bin; \
-    rm /tmp/terraform.zip
+RUN curl -fsSL http://dl.bintray.com/mitchellh/${HASHI_PRODUCT}/${HASHI_PRODUCT}_${HASHI_VERSION}_linux_amd64.zip > /tmp/${HASHI_PRODUCT}.zip && \
+		unzip /tmp/${HASHI_PRODUCT}.zip -d /usr/local/bin && \
+		rm /tmp/${HASHI_PRODUCT}.zip
 
 VOLUME /data
 WORKDIR /data
