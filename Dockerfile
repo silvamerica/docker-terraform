@@ -7,9 +7,9 @@ RUN apt-get update && \
 	rm -rf /var/lib/apt/lists/*
 
 ENV HASHI_PRODUCT terraform
-ENV HASHI_VERSION 0.6.3
+ENV HASHI_VERSION 0.6.12
 
-RUN curl -fsSL http://dl.bintray.com/mitchellh/${HASHI_PRODUCT}/${HASHI_PRODUCT}_${HASHI_VERSION}_linux_amd64.zip > /tmp/${HASHI_PRODUCT}.zip && \
+RUN curl -fsSL https://releases.hashicorp.com/${HASHI_PRODUCT}/${HASHI_VERSION}/${HASHI_PRODUCT}_${HASHI_VERSION}_linux_amd64.zip > /tmp/${HASHI_PRODUCT}.zip && \
 		unzip /tmp/${HASHI_PRODUCT}.zip -d /usr/local/bin && \
 		rm /tmp/${HASHI_PRODUCT}.zip
 
